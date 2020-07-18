@@ -24,24 +24,43 @@ class MyFrame(wx.Frame):
         self.Centre()
         self.Show(True)
 
+
+        self.color = {
+            'blue': wx.Colour(0, 0, 255),
+            'red': wx.Colour(255, 0, 0),
+            'green': wx.Colour(0, 255, 0),
+            'black': wx.Colour(0, 0, 0),
+        }
+
     def OnPaint(self, event):
         dc = wx.ClientDC(self)
         brush = wx.Brush("white")
         dc.SetBackground(brush)
         dc.Clear()
 
-        pen = wx.Pen(wx.Colour(0, 0, 255))
-        dc.SetPen(pen)
         count = 0
-        while count != 50: 
+        while count != 30: 
             x2, y2 = random.randint(100, 400), random.randint(100, 400)
 
-            xwidth = abs(x2 - 250)
-            yheiht = abs(y2 - 250)
+            if x2 > 250 and y2 < 250:
+                pen = wx.Pen(self.color['red'])
+                dc.SetPen(pen)
+            elif x2 > 250:
+                pen = wx.Pen(self.color['green'])
+                dc.SetPen(pen)
+            elif y2 > 250:
+                pen = wx.Pen(self.color['blue'])
+                dc.SetPen(pen)
+            else:
+                pen = wx.Pen(self.color['black'])
+                dc.SetPen(pen)
+
+            xwidth = abs(x2 - 250) 
+            yheiht = abs(y2 - 250) 
 
             line = sqrt(xwidth**2 + yheiht**2)
 
-            if 99 <= line <= 100:
+            if 149 <= line <= 150:
 
                 dc.DrawLine(250, 250, x2, y2)
                 count += 1
